@@ -55,7 +55,7 @@ class Commt {
     return decipher.output.toString();
   }
 
-  createRoom(participants: Array<string>) {
+  createRoom(participants: Array<string>): string {
     const data = {
       participants,
       tenantId: this.tenantId,
@@ -64,6 +64,8 @@ class Commt {
     axios.post(`${this.APIUrl}/api/v1/room`, data, {
       headers: { apiKey: this.apiKey, subscriptionKey: this.subscriptionKey },
     });
+
+    return data.chatRoomAuthId;
   }
 }
 
