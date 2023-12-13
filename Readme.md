@@ -98,14 +98,14 @@ router.post('/create-room', async (req, res) => {
         // Get array of string participants
         const { participants } = req.body;
 
-        // Inform commt for newly create room and get chatRoomAuthId field
-        const chatRoomAuthId = commt.createRoom(participants);
+        // Inform commt for newly created room by passing array of chatAuthIds of the users and get chatRoomAuthId field in return
+        const chatRoomAuthId = commt.createRoom(participants.chatAuthIds);
 
         // Create new room with given data
         await RoomModel.create({
             roomId,
             chatRoomAuthId,
-            participants,
+            participants: participants.ids,
             ...(communityAvatar && communityName && { communityAvatar, communityName})
         });
 
