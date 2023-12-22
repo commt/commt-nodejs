@@ -54,7 +54,7 @@ import { Commt } from "@commt/node-sdk";
 // Initiate Commt in your app/index file
 Commt.init({
   apiKey: "123456789?",
-  subscriptionKey: "0987654321?",
+  projectId: "0987654321?",
   secret: "4k4hum6rfuvxorul94zimh55",
 });
 
