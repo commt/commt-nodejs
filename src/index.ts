@@ -10,7 +10,7 @@ interface IAESDecrypt {
 
 interface IInit {
   apiKey: string;
-  subscriptionKey: string;
+  projectId: string;
   secret: string;
   APIUrl?: string;
 }
@@ -22,13 +22,13 @@ interface IInitResponse {
 }
 
 type ProjectProps = {
-  project: string;
+  SDK: string;
   version: string;
 };
 
 class Commt {
   protected apiKey: string;
-  protected subscriptionKey: string;
+  protected projectId: string;
   protected secretKey: string;
   protected APIUrl: string = "https://service.commt.co";
 
@@ -39,7 +39,7 @@ class Commt {
   constructor(keys: IInit) {
     this.secretKey = keys.secret;
     this.apiKey = keys.apiKey;
-    this.subscriptionKey = keys.subscriptionKey;
+    this.projectId = keys.projectId;
     this.APIUrl = keys.APIUrl ?? this.APIUrl;
   }
 
@@ -62,7 +62,7 @@ class Commt {
       chatRoomAuthId: IDGenerator({ longId: false }),
     };
     axios.post(`${this.APIUrl}/api/v1/room`, data, {
-      headers: { apiKey: this.apiKey, subscriptionKey: this.subscriptionKey },
+      headers: { apiKey: this.apiKey },
     });
 
     return data.chatRoomAuthId;
@@ -72,22 +72,21 @@ class Commt {
 class CommtFactory {
   protected static APIUrl: string = "https://service.commt.co";
   protected static project: ProjectProps = {
-    project: "NodeJS SDK",
+    SDK: "NodeJS SDK",
     version: packageJSON.version,
   };
   protected static commt: Commt;
 
   protected static async request(
     apiKey: string,
-    subscriptionKey: string
+    projectId: string
   ): Promise<IInitResponse> {
-    const queryParams = new URLSearchParams(this.project);
+    const queryParams = new URLSearchParams({ ...this.project, projectId });
 
     return Promise.resolve(
-      axios.get(`${this.APIUrl}/api/v1/tenant/config?${queryParams}`, {
+      axios.get(`${this.APIUrl}/api/v1/project/config?${queryParams}`, {
         headers: {
           apiKey,
-          subscriptionKey,
         },
       })
     )
@@ -109,7 +108,7 @@ class CommtFactory {
     this.commt = new Commt(config);
     this.APIUrl = config.APIUrl ?? this.APIUrl;
 
-    this.request(config.apiKey, config.subscriptionKey).then((response) => {
+    this.request(config.apiKey, config.projectId).then((response) => {
       this.commt.indicators = response.indicators;
       this.commt.tenantId = response.tenantId;
       this.commt.e2e = response.e2e;
