@@ -1,8 +1,9 @@
 # COMMT: Chat SDK for NodeJS
 
-![npm](https://img.shields.io/npm/dw/%40commt%2Fnode-sdk)
-![npm](https://img.shields.io/npm/v/%40commt%2Fnode-sdk)
-![NPM](https://img.shields.io/npm/l/%40commt%2Fnode-sdk?color=blue)
+![NPM](https://img.shields.io/npm/l/%40commt%2Fnode-sdk?color=blue&style=for-the-badge)
+![npm](https://img.shields.io/npm/v/%40commt%2Fnode-sdk?style=for-the-badge)
+![npm](https://img.shields.io/npm/dw/%40commt%2Fnode-sdk?label=npm%20downloads&style=for-the-badge)
+<!-- ![npm total downloads](https://img.shields.io/npm/dt/%40commt%2Fnode-sdk?label=Total%20NPM%20Downloads&style=for-the-badge) -->
 
 
 <p align="center">
